@@ -26,7 +26,11 @@ export class UsersCreateManyProvider {
   ) {}
 
   public async createMany(createManyUsersDto: CreateManyUsersDto) {
+<<<<<<< HEAD
     const newUsers: User[] = [];
+=======
+    let newUsers: User[] = [];
+>>>>>>> b1e850c4300fd13821021324039f3d0f0102f38e
 
     // Create Query Runner Instance
     const queryRunner = this.dataSource.createQueryRunner();
@@ -42,9 +46,15 @@ export class UsersCreateManyProvider {
     }
 
     try {
+<<<<<<< HEAD
       for (const user of createManyUsersDto.users) {
         const newUser = this.usersRepository.create(user);
         const result = await queryRunner.manager.save(newUser);
+=======
+      for (let user of createManyUsersDto.users) {
+        let newUser = this.usersRepository.create(user);
+        let result = await queryRunner.manager.save(newUser);
+>>>>>>> b1e850c4300fd13821021324039f3d0f0102f38e
         newUsers.push(result);
       }
 

@@ -13,9 +13,12 @@ import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { TagsService } from '../../tags/providers/tags.service';
 import { PatchPostDto } from '../dtos/patch-post-dto';
 import { Tag } from 'src/tags/tag.entity';
+<<<<<<< HEAD
 import { GetPostsDto } from '../dtos/get-posts.dto';
 import { PaginationProvider } from 'src/common/pagination/providers/pagination.provider';
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
+=======
+>>>>>>> b1e850c4300fd13821021324039f3d0f0102f38e
 
 @Injectable()
 export class PostsService {

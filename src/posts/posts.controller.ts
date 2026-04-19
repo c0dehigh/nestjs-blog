@@ -43,7 +43,13 @@ export class PostsController {
     @Param('userId') userId: string,
     @Query() postQuery: GetPostsDto,
   ) {
+<<<<<<< HEAD
     return this.postsService.findAll(postQuery, userId);
+=======
+    console.log(postQuery);
+
+    return this.postsService.findAll(userId);
+>>>>>>> b1e850c4300fd13821021324039f3d0f0102f38e
   }
   @ApiResponse({
     status: 200,
