@@ -16,20 +16,20 @@ import { Tag } from '../tags/tag.entity';
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
   @Column({
     type: 'varchar',
     length: 512,
     nullable: false,
   })
-  title: string;
+  title!: string;
   @Column({
     type: 'enum',
     enum: postType,
     nullable: false,
     default: postType.POST,
   })
-  postType: postType;
+  postType!: postType;
 
   @Column({
     type: 'varchar',
@@ -37,7 +37,7 @@ export class Post {
     nullable: false,
     unique: true,
   })
-  slug: string;
+  slug!: string;
 
   @Column({
     type: 'enum',
@@ -45,7 +45,7 @@ export class Post {
     nullable: false,
     default: postStatus.DRAFT,
   })
-  status: postStatus;
+  status!: postStatus;
 
   @Column({
     type: 'text',
@@ -78,7 +78,7 @@ export class Post {
   @ManyToOne(() => User, (user) => user.posts, {
     eager: true,
   })
-  author: User;
+  author!: User;
 
   @ManyToMany(() => Tag, (tag) => tag.posts, {
     eager: true,

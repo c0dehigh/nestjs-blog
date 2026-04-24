@@ -4,33 +4,33 @@ import { Post } from '../posts/post.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
   @Column({
     type: 'varchar',
     length: 96,
     nullable: false,
   })
-  firstName: string;
+  firstName!: string;
   @Column({
     type: 'varchar',
     length: 96,
     nullable: true,
   })
-  lastName: string;
+  lastName!: string;
   @Column({
     type: 'varchar',
     length: 96,
     nullable: false,
     unique: true,
   })
-  email: string;
+  email!: string;
   @Column({
     type: 'varchar',
     length: 96,
     nullable: false,
   })
-  password: string;
+  password!: string;
 
   @OneToMany(() => Post, (post) => post.author)
-  posts: Post[];
+  posts!: Post[];
 }

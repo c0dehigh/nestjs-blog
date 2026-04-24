@@ -12,14 +12,14 @@ import { Post } from '../posts/post.entity';
 @Entity()
 export class Tag {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
   @Column({
     type: 'varchar',
     length: 256,
     nullable: false,
     unique: true,
   })
-  name: string;
+  name!: string;
 
   @Column({
     type: 'varchar',
@@ -27,7 +27,7 @@ export class Tag {
     nullable: false,
     unique: true,
   })
-  slug: string;
+  slug!: string;
 
   @Column({
     type: 'text',
@@ -47,16 +47,16 @@ export class Tag {
   featuredImageUrl?: string;
 
   @CreateDateColumn()
-  createDate: Date;
+  createDate!: Date;
 
   @UpdateDateColumn()
-  updateDate: Date;
+  updateDate!: Date;
 
   @DeleteDateColumn()
-  dateLedAt: Date;
+  dateLedAt!: Date;
 
   @ManyToMany(() => Post, (post) => post.tags, {
     onDelete: 'CASCADE',
   })
-  posts: Post[];
+  posts!: Post[];
 }
