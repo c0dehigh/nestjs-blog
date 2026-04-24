@@ -12,23 +12,23 @@ import { Post } from '../posts/post.entity';
 @Entity()
 export class MetaOption {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({
     type: 'json',
     nullable: false,
   })
-  metaValue: string;
+  metaValue!: string;
 
   @CreateDateColumn()
-  createDate: Date;
+  createDate!: Date;
 
   @UpdateDateColumn()
-  updateDate: Date;
+  updateDate!: Date;
 
   @OneToOne(() => Post, (post) => post.metaOptions, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
-  post: Post;
+  post!: Post;
 }
