@@ -16,6 +16,7 @@ import environmentValidation from './config/environment.validation';
 import jwtConfig from './auth/config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
+import { AuthenticationGuard } from './auth/guards/authentication.guard';
 import { AccessTokenGuard } from './auth/guards/access-token/access-token.guard';
 
 const ENV = process.env.NODE_ENV;
@@ -59,8 +60,9 @@ const ENV = process.env.NODE_ENV;
     PaginationProvider,
     {
       provide: APP_GUARD,
-      useClass: AccessTokenGuard,
+      useClass: AuthenticationGuard,
     },
+    AccessTokenGuard,
   ],
 })
 export class AppModule {}
