@@ -44,7 +44,7 @@ export class PostsController {
   ) {
     console.log(user);
 
-    //  return this.postsService.create(createPostDto);
+    return this.postsService.create(createPostDto);
   }
 
   @Get('{/:userId}')
