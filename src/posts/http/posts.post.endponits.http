@@ -1,11 +1,11 @@
 POST http://localhost:3000/posts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiaGFtZWR6aWJpQGdtYWlsLmNvbSIsImlhdCI6MTc3NzcwMTgzNiwiZXhwIjoxNzc3NzA1NDM2LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.GtqjzFKjUEhFsXXTqMTw677CdjDkpdwBTqm02m82KK4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiaGFtZWR6aWJpQGdtYWlsLmNvbSIsImlhdCI6MTc3NzgyMjMyMCwiZXhwIjoxNzc3ODI1OTIwLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.twr3IA5McJ1c_n53gTIAUkv_qD9P9_jah_hSu0-yrfQ
 
 {
-  "title": "Whats new with React 22",
+  "title": "Whats new with React 23",
   "postType": "post",
-  "slug": "new-with-react22",
+  "slug": "new-with-react23",
   "status": "draft",
   "content": "test content",
   "schema": "{\r\n \"@context\":\"https:\/\/schema.org\",\r\n \"@type\": \"Person\"\r\n}",
@@ -14,7 +14,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsI
   "metaOptions": {
     "metaValue": "{\"sidebarEnabled\":true , \"footerActive\":true}"
   },
-  "authorId": 1,
   "tags": [
     1
   ]
