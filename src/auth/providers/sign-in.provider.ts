@@ -42,6 +42,10 @@ export class SignInProvider {
       throw new UnauthorizedException();
     }
 
+    if (!user.password) {
+      throw new UnauthorizedException('User does not have a password');
+    }
+
     let isEqual: boolean = false;
 
     try {
