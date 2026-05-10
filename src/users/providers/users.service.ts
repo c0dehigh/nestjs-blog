@@ -1,7 +1,6 @@
 import {
   Injectable,
   Inject,
-  forwardRef,
   RequestTimeoutException,
   BadRequestException,
   HttpException,
@@ -20,6 +19,8 @@ import { CreateManyUsersDto } from '../dtos/create-users-many.dto';
 import { CreateUserProvider } from './create-user.provider';
 import { FindOneByEmailProvider } from './find-one-by-email.provider';
 import { FindOneByGoogleidProvider } from './find-one-by-googleid.provider';
+import { CreateGoogleUserProvider } from './create-google-user.provider';
+import { GoogleUser } from '../interfaces/google-user.interface';
 
 /**
  * Class that handles the business logic for the users
@@ -64,6 +65,11 @@ export class UsersService {
      * inject findOneByGoogleIdProvider
      */
     private readonly findOneByGoogleIdProvider: FindOneByGoogleidProvider,
+
+    /**
+     * Inject createGoogleUserProvider
+     */
+    private readonly createGoogleUserProvider: CreateGoogleUserProvider,
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
@@ -73,28 +79,6 @@ export class UsersService {
   public async createMany(createManyUsersDto: CreateManyUsersDto) {
     return await this.usersCreateManyProvider.createMany(createManyUsersDto);
   }
-
-  /**
-   * the method to find all users
-   */
-  // public findAll(
-  //   getUserParamDto: GetUsersParamDto,
-  //   limit: number,
-  //   page: number,
-  // ) {
-  //   console.log(this.profileConfiguration);
-
-  //   return [
-  //     {
-  //       firstName: 'John',
-  //       email: 'john@doe.com',
-  //     },
-  //     {
-  //       firstName: 'Alice',
-  //       email: 'alice@doe.com',
-  //     },
-  //   ];
-  // }
 
   public findAll(
     getUserParamDto: GetUsersParamDto,
@@ -156,5 +140,9 @@ export class UsersService {
 
   public async findOneByGoogleId(googleId: string) {
     return await this.findOneByGoogleIdProvider.findOneByGoogleId(googleId);
+  }
+
+  public async createGoogleUser(googleUser: GoogleUser) {
+    return await this.createGoogleUserProvider.createGoogleUser(googleUser);
   }
 }
