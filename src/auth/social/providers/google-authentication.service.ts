@@ -4,6 +4,7 @@ import {
   Inject,
   Injectable,
   OnModuleInit,
+  UnauthorizedException,
 } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
 import { OAuth2Client } from 'google-auth-library';
@@ -44,32 +45,56 @@ export class GoogleAuthenticationService implements OnModuleInit {
   }
 
   public async authenticate(googleTokenDto: GoogleTokenDto) {
-    // verify the token send by user
-    const loginTicket = await this.oAuthClinet.verifyIdToken({
-      idToken: googleTokenDto.token,
-    });
-    console.log(loginTicket);
+    try {
+      // verify the token send by user
+      const loginTicket = await this.oAuthClinet.verifyIdToken({
+        idToken: googleTokenDto.token,
+        audience: this.jwtConfiguration.googleClientId,
+      });
+      console.log(loginTicket);
 
-    // extract payload from google jwt
-    const payload = loginTicket.getPayload();
-    if (!payload) {
-      throw new BadRequestException('Invalid token');
-    }
-    const {
-      email,
-      sub: googleId,
-      given_name: firstName,
-      family_name: lastName,
-    } = payload;
-    // find the user in database from googleId
+      // extract payload from google jwt
+      const payload = loginTicket.getPayload();
+      if (!payload) {
+        throw new BadRequestException('Invalid token');
+      }
+      const {
+        email,
+        sub: googleId,
+        given_name: firstName,
+        family_name: lastName,
+      } = payload;
+      if (!email || !googleId || !firstName || !lastName) {
+        throw new BadRequestException('Google account payload is incomplete');
+      }
+      // find the user in database from googleId
 
-    let user = await this.usersService.findOneByGoogleId(googleId);
-    // if googleId exist in database generate token
-    if (user) {
+      let user = await this.usersService.findOneByGoogleId(googleId);
+
+      if (!user) {
+        user = await this.usersService.findOneByEmail(email);
+
+        if (user) {
+          // link google account
+
+          user.googleId = googleId;
+          await this.usersService.updateUser(user.id, user);
+        } else {
+          user = await this.usersService.createGoogleUser({
+            email,
+            firstName,
+            lastName,
+            googleId,
+          });
+        }
+      }
+
       return await this.generateTokensProvider.generateTokens(user);
-    }
-    // if not create user then generate token
+    } catch (error) {
+      // throw unauthorized exception
+      console.log(error);
 
-    // throw unauthorized exception
+      throw new UnauthorizedException(error);
+    }
   }
 }

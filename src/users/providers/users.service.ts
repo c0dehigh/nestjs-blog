@@ -21,6 +21,7 @@ import { FindOneByEmailProvider } from './find-one-by-email.provider';
 import { FindOneByGoogleidProvider } from './find-one-by-googleid.provider';
 import { CreateGoogleUserProvider } from './create-google-user.provider';
 import { GoogleUser } from '../interfaces/google-user.interface';
+import { PatchUserDto } from '../dtos/patch-user.dto';
 
 /**
  * Class that handles the business logic for the users
@@ -132,6 +133,27 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  /**
+   * the method to update a user by id
+   */
+  public async updateUser(id: number, patchUserDto: PatchUserDto) {
+    const user = await this.findOneById(id);
+
+    const updatedUser = this.usersRepository.merge(user, patchUserDto);
+
+    try {
+      return await this.usersRepository.save(updatedUser);
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process the request at the moment. Please try again later.',
+        {
+          description: 'Database connection error',
+          cause: String(error),
+        },
+      );
+    }
   }
 
   public async findOneByEmail(email: string) {
