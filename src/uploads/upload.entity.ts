@@ -10,38 +10,38 @@ import { fileTypes } from './enums/file-types.enum';
 @Entity()
 export class Upload {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
   @Column({
     type: 'varchar',
     length: 1024,
     nullable: false,
   })
-  name!: string;
+  name: string;
   @Column({
     type: 'varchar',
     length: 1024,
     nullable: false,
   })
-  path!: string;
+  path: string;
   @Column({
     type: 'enum',
     enum: fileTypes,
     default: fileTypes.IMAGE,
     nullable: false,
   })
-  type!: string;
+  type: string;
   @Column({
     type: 'varchar',
     length: 128,
     nullable: false,
   })
-  mime!: string;
+  mime: string;
   @Column({
     type: 'varchar',
     length: 128,
     nullable: false,
   })
-  size!: number;
+  size: number;
 
   @CreateDateColumn()
   createDate!: Date;
