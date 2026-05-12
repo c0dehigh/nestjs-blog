@@ -8,4 +8,8 @@ export default registerAs('appConfig', () => ({
   awsCloudFrontUrl: process.env.AWS_CLOUDFRONT_URL,
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  arvanBucketName: process.env.ARVAN_BUCKET_NAME,
+  arvanEndpoint: process.env.ARVAN_ENDPOINT,
+  arvanAccessKey: process.env.ARVAN_ACCESS_KEY,
+  arvanSecretKey: process.env.ARVAN_SECRET_KEY,
 }));
