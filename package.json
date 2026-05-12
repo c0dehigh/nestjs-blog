@@ -21,6 +21,7 @@
     "doc": "npx @compodoc/compodoc -p tsconfig.json -s --port 3001 --watch -d ./documenation"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1045.0",
     "@compodoc/compodoc": "^1.1.32",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
@@ -39,7 +40,8 @@
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.27"
+    "typeorm": "^0.3.27",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
