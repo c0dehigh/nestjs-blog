@@ -1,0 +1,11 @@
+POST http://localhost:3000/uploads/file
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiaGFtZWR6aWJpQGdtYWlsLmNvbSIsImlhdCI6MTc3ODYwODU1MywiZXhwIjoxNzc4NjEyMTUzLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.5qxEwYnjlwGNpusDXqSH6GTI65fcpHz3Su9mPnMzsUM
+
+file
+--WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="azov.jpg"
+Content-Type: image/jpg
+
+< ./azov.jpg
+--WebKitFormBoundary--
