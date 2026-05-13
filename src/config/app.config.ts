@@ -12,4 +12,7 @@ export default registerAs('appConfig', () => ({
   arvanEndpoint: process.env.ARVAN_ENDPOINT,
   arvanAccessKey: process.env.ARVAN_ACCESS_KEY,
   arvanSecretKey: process.env.ARVAN_SECRET_KEY,
+  mailHost: process.env.MAIL_HOST,
+  smtpUsername: process.env.SMTP_USERNAME,
+  smtpPassword: process.env.SMTP_PASSWORD,
 }));
