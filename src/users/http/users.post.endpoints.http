@@ -1,6 +1,6 @@
 POST http://localhost:3000/users
 Content-Type : application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiaGFtZWR6aWJpQGdtYWlsLmNvbSIsImlhdCI6MTc3NzYzMTIzOSwiZXhwIjoxNzc3NjM0ODM5LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.37gNCWX2ZeBukOxQNwwODunVWsNUxgaOW94UeTnA7Gw
+
 
 
 
@@ -8,7 +8,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsI
 {
     "firstName" : "Hamed",
     "lastName" : "Zibi",
-    "email" : "hamed5@gmail.com",
+    "email" : "hamedzibandeh70@gmail.com",
     "password" : "!Hamed102030"
 }
 
