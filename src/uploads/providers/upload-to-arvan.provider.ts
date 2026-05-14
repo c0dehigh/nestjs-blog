@@ -5,26 +5,18 @@ import { generateFileName } from '../helper/uploads.helper';
 @Injectable()
 export class UploadToArvanProvider {
   private readonly s3: S3Client;
-  private readonly bucketName: string;
-  private readonly endpoint: string;
-  constructor(private readonly configService: ConfigService) {
-    this.bucketName = this.configService.get<string>(
-      'appConfig.arvanBucketName',
-    )!;
-    this.endpoint = this.configService.get<string>('appConfig.arvanEndpoint')!;
-    const accessKeyId = this.configService.get<string>(
-      'appConfig.arvanAccessKey',
-    )!;
-    const secretAccessKey = this.configService.get<string>(
-      'appConfig.arvanSecretKey',
-    )!;
 
+  constructor(private readonly configService: ConfigService) {
     this.s3 = new S3Client({
       region: 'default',
-      endpoint: this.endpoint,
+      endpoint: this.configService.get<string>('appConfig.arvanEndpoint')!,
       credentials: {
-        accessKeyId,
-        secretAccessKey,
+        accessKeyId: this.configService.get<string>(
+          'appConfig.arvanAccessKey',
+        )!,
+        secretAccessKey: this.configService.get<string>(
+          'appConfig.arvanSecretKey',
+        )!,
       },
       forcePathStyle: true,
     });
@@ -32,7 +24,7 @@ export class UploadToArvanProvider {
   public async fileUpload(file: Express.Multer.File) {
     const fileName = generateFileName(file);
     const command = new PutObjectCommand({
-      Bucket: this.bucketName,
+      Bucket: this.configService.get<string>('appConfig.arvanBucketName')!,
       Key: fileName,
       Body: file.buffer,
       ACL: 'public-read',
@@ -42,9 +34,7 @@ export class UploadToArvanProvider {
 
     try {
       await this.s3.send(command);
-      const location = `${this.endpoint}/${this.bucketName}/${fileName}`;
-
-      console.log(`Location :${location}`);
+      const location = `${this.configService.get<string>('appConfig.arvanEndpoint')!}/${this.configService.get<string>('appConfig.arvanBucketName')!}/${fileName}`;
 
       return { Key: fileName, Location: location };
     } catch (error) {
