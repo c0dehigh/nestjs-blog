@@ -2,7 +2,6 @@ import { IsArray, IsNotEmpty, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateUserDto } from './create-user.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../user.entity';
 
 export class CreateManyUsersDto {
   @ApiProperty({

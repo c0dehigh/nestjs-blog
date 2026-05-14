@@ -1,7 +1,5 @@
 import {
-  BadRequestException,
   Body,
-  ConflictException,
   HttpException,
   Injectable,
   InternalServerErrorException,
@@ -13,7 +11,7 @@ import { Post } from '../post.entity';
 import { TagsService } from 'src/tags/providers/tags.service';
 import { UsersService } from 'src/users/providers/users.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ActiveUserData } from 'src/auth/interfaces/active-user.interface';
 
 @Injectable()
@@ -30,7 +28,7 @@ export class CreatePostProvider {
     private readonly tagsService: TagsService,
 
     /**
-     * inject post repository
+     * inject postRepository
      */
     @InjectRepository(Post)
     private readonly postRepository: Repository<Post>,

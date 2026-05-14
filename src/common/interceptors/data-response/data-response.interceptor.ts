@@ -5,7 +5,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Observable, tap, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable()
 export class DataResponseInterceptor implements NestInterceptor {
@@ -13,7 +13,7 @@ export class DataResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       map((data) => ({
-        apiVersion: this.configService.get('appConfig.apiVersion'),
+        apiVersion: this.configService.get<string>('appConfig.apiVersion'),
         data: data,
       })),
     );

@@ -8,14 +8,12 @@ import {
   Query,
   ParseIntPipe,
   Delete,
-  Req,
 } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { PatchPostDto } from './dtos/patch-post-dto';
 import { GetPostsDto } from './dtos/get-posts.dto';
-import { REQUEST_USER_KEY } from 'src/auth/constants/auth.constants';
 import { ActiveUser } from 'src/auth/decorator/active-user.decorator';
 import type { ActiveUserData } from 'src/auth/interfaces/active-user.interface';
 
@@ -51,8 +49,6 @@ export class PostsController {
     @Query() postQuery: GetPostsDto,
   ) {
     return this.postsService.findAll(postQuery, userId);
-
-    console.log(postQuery);
   }
   @ApiResponse({
     status: 200,
