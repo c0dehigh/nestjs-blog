@@ -15,9 +15,9 @@ export class User {
   @Column({
     type: 'varchar',
     length: 96,
-    nullable: true,
+    nullable: false,
   })
-  lastName!: string;
+  lastName: string;
   @Column({
     type: 'varchar',
     length: 96,
@@ -41,5 +41,5 @@ export class User {
   googleId?: string;
 
   @OneToMany(() => Post, (post) => post.author)
-  posts!: Post[];
+  posts?: Post[];
 }
