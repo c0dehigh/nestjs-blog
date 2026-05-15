@@ -4,7 +4,7 @@ import { User } from '../user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class FindOneByGoogleidProvider {
+export class FindOneByGoogleIdProvider {
   constructor(
     /**
      * Inject user repository

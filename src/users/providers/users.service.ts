@@ -18,7 +18,7 @@ import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateManyUsersDto } from '../dtos/create-users-many.dto';
 import { CreateUserProvider } from './create-user.provider';
 import { FindOneByEmailProvider } from './find-one-by-email.provider';
-import { FindOneByGoogleidProvider } from './find-one-by-googleid.provider';
+import { FindOneByGoogleIdProvider } from './find-one-by-googleid.provider';
 import { CreateGoogleUserProvider } from './create-google-user.provider';
 import { GoogleUser } from '../interfaces/google-user.interface';
 import { PatchUserDto } from '../dtos/patch-user.dto';
@@ -35,14 +35,14 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
 
-    @Inject(profileConfig.KEY)
-    private readonly profileConfiguration: ConfigType<typeof profileConfig>,
+    // @Inject(profileConfig.KEY)
+    // private readonly profileConfiguration: ConfigType<typeof profileConfig>,
 
     /**
      * Inject Data source
      */
 
-    private readonly dataSource: DataSource,
+    // private readonly dataSource: DataSource,
 
     /**
      * Inject usersCreateManyProvider
@@ -65,7 +65,7 @@ export class UsersService {
     /**
      * inject findOneByGoogleIdProvider
      */
-    private readonly findOneByGoogleIdProvider: FindOneByGoogleidProvider,
+    private readonly findOneByGoogleIdProvider: FindOneByGoogleIdProvider,
 
     /**
      * Inject createGoogleUserProvider
