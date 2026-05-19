@@ -6,8 +6,8 @@ import { AppModule } from 'src/app.module';
 
 export async function bootstrapNestApplication(): Promise<INestApplication> {
   const moduleFixture: TestingModule = await Test.createTestingModule({
-    imports: [AppModule, ConfigService],
-    providers: [ConfigService],
+    imports: [AppModule],
+  //  providers: [ConfigService],
   }).compile();
 
   const app = moduleFixture.createNestApplication();
