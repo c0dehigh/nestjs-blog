@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { v4 as uuid4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 export const generateFileName = (file: Express.Multer.File) => {
   // Extract file name
@@ -11,5 +11,5 @@ export const generateFileName = (file: Express.Multer.File) => {
   // Generate time stamp
   let timeStamp = new Date().getTime().toString().trim();
   // Return file uuid
-  return `${name}-${timeStamp}-${uuid4()}`;
+  return `${name}-${timeStamp}-${randomUUID()}`;
 };
