@@ -21,6 +21,7 @@ import { AccessTokenGuard } from './auth/guards/access-token/access-token.guard'
 import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
 import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 const ENV = process.env.NODE_ENV;
 
@@ -37,6 +38,12 @@ const ENV = process.env.NODE_ENV;
       load: [appConfig, databaseConfig],
       validationSchema: environmentValidation,
     }),
+    MongooseModule.forRoot(
+      'mongodb://root:root@localhost:27017/nestjs-blog?authSource=admin',
+      {
+        dbName: 'nestjs-blog',
+      },
+    ),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
