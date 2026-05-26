@@ -22,6 +22,9 @@ import { FindOneByGoogleIdProvider } from './find-one-by-googleid.provider';
 import { CreateGoogleUserProvider } from './create-google-user.provider';
 import { GoogleUser } from '../interfaces/google-user.interface';
 import { PatchUserDto } from '../dtos/patch-user.dto';
+import { Model } from 'mongoose';
+// import { User } from '../user.schema'; // if use mongodb
+import { InjectModel } from '@nestjs/mongoose';
 
 /**
  * Class that handles the business logic for the users
@@ -29,6 +32,13 @@ import { PatchUserDto } from '../dtos/patch-user.dto';
 @Injectable()
 export class UsersService {
   constructor(
+    /**
+     * Inject userModel
+     * if use mongodb
+     */
+    // @InjectModel(User.name)
+    // private readonly userModel: Model<User>,
+
     /**
      * Injecting userRepository
      */
@@ -72,6 +82,14 @@ export class UsersService {
      */
     private readonly createGoogleUserProvider: CreateGoogleUserProvider,
   ) {}
+
+  /**
+   * Create user for mongo db
+   */
+  // public async createUser(createUserDto: CreateUserDto) {
+  //   const newUser = new this.userModel(createUserDto);
+  //   return await newUser.save();
+  // }
 
   public async createUser(createUserDto: CreateUserDto) {
     return this.createUserProvider.createUser(createUserDto);
