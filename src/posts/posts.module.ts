@@ -8,11 +8,19 @@ import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { TagsModule } from '../tags/tags.module';
 import { PaginationModule } from 'src/common/pagination/pagination.module';
 import { CreatePostProvider } from './providers/create-post.provider';
+// import { MongooseModule } from '@nestjs/mongoose';
+// import { Post, PostSchema } from './post.schema';
 
 @Module({
   controllers: [PostsController],
   providers: [PostsService, CreatePostProvider],
   imports: [
+    // MongooseModule.forFeature([
+    //   {
+    //     name: Post.name,
+    //     schema: PostSchema,
+    //   },
+    // ]),
     UsersModule,
     TagsModule,
     PaginationModule,
