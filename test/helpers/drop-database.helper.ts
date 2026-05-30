@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 
 export async function dropDatabase(config: ConfigService): Promise<void> {
   // Create the connection data source
-  const AppDataSource =  new DataSource({
+  const AppDataSource = new DataSource({
     type: 'postgres',
     synchronize: config.get('database.synchronize'),
     host: config.get('database.host'),
