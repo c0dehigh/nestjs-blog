@@ -70,6 +70,8 @@ class UsersController {
     return this.usersService.createMany(createManyUsersDto);
   }
 
+  
+
   @Patch()
   public patchUsers(@Body() patchUserDto: PatchUserDto) {
     return patchUserDto;
