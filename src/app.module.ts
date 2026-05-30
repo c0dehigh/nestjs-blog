@@ -39,7 +39,7 @@ const ENV = process.env.NODE_ENV;
       validationSchema: environmentValidation,
     }),
     MongooseModule.forRoot(
-      'mongodb://root:root@localhost:27017/nestjs-blog?authSource=admin',
+      'mongodb://marmoot:marmootking1020@localhost:27017/nestjs-blog?authSource=admin',
       {
         dbName: 'nestjs-blog',
       },
