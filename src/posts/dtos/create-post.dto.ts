@@ -90,6 +90,13 @@ export class CreatePostDto {
   @Type(() => String)
   publishOn?: Date;
 
+  // when use mongodb as database
+
+  // @ApiProperty()
+  // @IsString()
+  // @IsNotEmpty()
+  // author: string;
+
   @ApiPropertyOptional({
     description: 'Array of tags ids',
     example: [1, 2],
