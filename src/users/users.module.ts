@@ -13,8 +13,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { FindOneByGoogleIdProvider } from './providers/find-one-by-googleid.provider';
 import { CreateGoogleUserProvider } from './providers/create-google-user.provider';
 import jwtConfig from 'src/auth/config/jwt.config';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './user.schema';
 
 @Module({
   controllers: [UsersController],
@@ -28,12 +26,6 @@ import { UserSchema } from './user.schema';
   ],
   exports: [UsersService],
   imports: [
-    MongooseModule.forFeature([
-      {
-        name: User.name,
-        schema: UserSchema,
-      },
-    ]),
     TypeOrmModule.forFeature([User]),
     ConfigModule.forFeature(profileConfig),
     forwardRef(() => AuthModule),

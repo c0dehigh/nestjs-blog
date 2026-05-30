@@ -23,8 +23,6 @@ import { CreateGoogleUserProvider } from './create-google-user.provider';
 import { GoogleUser } from '../interfaces/google-user.interface';
 import { PatchUserDto } from '../dtos/patch-user.dto';
 import { Model } from 'mongoose';
-// import { User } from '../user.schema'; // if use mongodb
-import { InjectModel } from '@nestjs/mongoose';
 
 /**
  * Class that handles the business logic for the users
@@ -32,13 +30,6 @@ import { InjectModel } from '@nestjs/mongoose';
 @Injectable()
 export class UsersService {
   constructor(
-    /**
-     * Inject userModel
-     * if use mongodb
-     */
-    // @InjectModel(User.name)
-    // private readonly userModel: Model<User>,
-
     /**
      * Injecting userRepository
      */

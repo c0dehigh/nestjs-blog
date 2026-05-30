@@ -18,8 +18,6 @@ import { PaginationProvider } from 'src/common/pagination/providers/pagination.p
 import { Paginated } from 'src/common/pagination/interfaces/paginated.interface';
 import { CreatePostProvider } from './create-post.provider';
 import { ActiveUserData } from 'src/auth/interfaces/active-user.interface';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class PostsService {
@@ -28,13 +26,6 @@ export class PostsService {
      * Injecting User Service
      */
     private readonly usersService: UsersService,
-
-    /**
-     * Inject postModel for mongodb
-     */
-
-    // @InjectModel(Post.name)
-    // private readonly postModel: Model<Post>,
 
     /**
      * inject post repository
