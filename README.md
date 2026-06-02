@@ -1,98 +1,194 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS Blog API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A REST API for a blog platform built with [NestJS](https://nestjs.com). It covers user accounts, JWT authentication (including Google sign-in), posts with metadata and tags, file uploads to object storage, and transactional email.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **Users** — Registration, paginated listing, bulk create, profile updates
+- **Authentication** — Email/password sign-in, access & refresh tokens, Google OAuth token exchange
+- **Posts** — CRUD with types (`post`, `page`, `story`, `series`), statuses (`draft`, `scheduled`, `review`, `published`), slugs, and author association
+- **Tags** — Create, hard delete, and soft delete
+- **Meta options** — JSON metadata linked one-to-one with posts
+- **Uploads** — Image upload (JPEG, PNG, GIF) to [Arvan Cloud](https://www.arvancloud.ir/en/products/cloud-storage) S3-compatible storage (AWS S3 provider also available)
+- **Mail** — Welcome emails via SMTP (e.g. [Mailtrap](https://mailtrap.io) for development)
+- **API docs** — OpenAPI/Swagger UI at `/api`
+- **Uniform responses** — Global interceptor wraps payloads with `apiVersion` and `data`
+- **Validation** — `class-validator` + Joi env validation
+- **Database** — PostgreSQL with TypeORM entities and migrations
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech stack
 
-## Project setup
+| Layer | Technology |
+|--------|------------|
+| Runtime | Node.js 22 |
+| Framework | NestJS 11 |
+| Language | TypeScript |
+| Database | PostgreSQL 16, TypeORM |
+| Auth | JWT (`@nestjs/jwt`), bcrypt |
+| Storage | AWS SDK / Arvan S3 |
+| Email | `@nestjs-modules/mailer`, Nodemailer, EJS templates |
+| Docs | Swagger, Compodoc |
 
-```bash
-$ npm install
-```
+## Prerequisites
 
-## Compile and run the project
+- Node.js 18+ (22 recommended; matches Docker image)
+- npm
+- PostgreSQL 16 (local or Docker)
+- Optional: Google OAuth client credentials, S3-compatible bucket, SMTP account
 
-```bash
-# development
-$ npm run start
+## Getting started
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
+### 1. Clone and install
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone <repository-url>
+cd nestjs-blog
+npm install
 ```
 
-## Deployment
+### 2. Environment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Copy the example file and adjust values for your machine:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+cp .env.development.example .env.development
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The app loads `.env.{NODE_ENV}` (e.g. `.env.development` when `NODE_ENV=development`). Scripts set `NODE_ENV` via `cross-env`.
 
-## Resources
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_*` | PostgreSQL host, port, user, password, name |
+| `DATABASE_SYNC` | TypeORM `synchronize` (use `true` only in dev) |
+| `DATABASE_AUTOLOAD` | Auto-load entities |
+| `JWT_SECRET` | Signing secret for access/refresh tokens |
+| `JWT_TOKEN_AUDIENCE` / `JWT_TOKEN_ISSUER` | JWT claims |
+| `JWT_ACCESS_TOKEN_TTL` / `JWT_REFRESH_TOKEN_TTL` | Token lifetimes (seconds) |
+| `PROFILE_API_KEY` | External profile service key |
+| `API_VERSION` | Returned in every API response |
+| `AWS_*` | AWS S3 settings (required by env validation) |
+| `ARVAN_*` | Arvan bucket, endpoint, keys, CDN URL (used for uploads) |
+| `MAIL_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD` | SMTP for transactional mail |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google sign-in (optional at runtime) |
+| `PORT` | HTTP port (default `3000`) |
 
-Check out a few resources that may come in handy when working with NestJS:
+### 3. Database
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Create a PostgreSQL database matching `DATABASE_NAME`, then either:
 
-## Support
+- **Development:** set `DATABASE_SYNC=true` so TypeORM creates/updates schema from entities, or  
+- **Migrations:** configure `typeorm-cli.sample.config.ts`, build the project, and run TypeORM migrations from `src/migrations/`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 4. Run locally
 
-## Stay in touch
+```bash
+# development with watch
+npm run start:dev
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# production build
+npm run build
+npm run start:prod
+```
+
+- API: `http://localhost:3000`
+- Swagger: `http://localhost:3000/api`
+
+### 5. Docker Compose
+
+Runs the API and PostgreSQL together. Ensure `.env.production` exists with the same variables as above (Compose overrides `DATABASE_HOST` to `postgres` inside the network).
+
+```bash
+docker compose up --build
+```
+
+## API overview
+
+Most routes require a **Bearer** access token. Endpoints marked public use `@Auth(AuthType.None)`.
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| `POST` | `/auth/sign-in` | Public | Sign in with email/password |
+| `POST` | `/auth/refresh-tokens` | Public | Issue new access token from refresh token |
+| `POST` | `/auth/google-authentication/authenticate` | Public | Sign in or register with Google ID token |
+| `POST` | `/users` | Public | Register a user |
+| `GET` | `/users` | Bearer | List users (pagination: `limit`, `page`) |
+| `GET` | `/users/:id` | Bearer | Get user by id |
+| `POST` | `/users/create-many` | Bearer | Bulk create users |
+| `PATCH` | `/users` | Bearer | Update user |
+| `POST` | `/posts` | Bearer | Create post (author from token) |
+| `GET` | `/posts/:userId` | Bearer | List/filter posts for a user |
+| `PATCH` | `/posts` | Bearer | Update post |
+| `DELETE` | `/posts?id=` | Bearer | Delete post |
+| `POST` | `/tags` | Bearer | Create tag |
+| `DELETE` | `/tags?id=` | Bearer | Hard delete tag |
+| `DELETE` | `/tags/soft-delete?id=` | Bearer | Soft delete tag |
+| `POST` | `/meta-options` | Bearer | Create meta option |
+| `POST` | `/uploads/file` | Bearer | Upload image (`multipart/form-data`, field `file`) |
+
+Example response shape (global interceptor):
+
+```json
+{
+  "apiVersion": "0.0.1",
+  "data": { }
+}
+```
+
+HTTP request samples live under `src/**/http/*.http` (REST Client / VS Code).
+
+## Authentication flow
+
+1. Register via `POST /users` or authenticate with Google.
+2. `POST /auth/sign-in` returns access and refresh tokens.
+3. Send `Authorization: Bearer <access_token>` on protected routes.
+4. When the access token expires, `POST /auth/refresh-tokens` with the refresh token.
+
+## Project structure
+
+```
+src/
+├── auth/           # JWT, guards, sign-in, Google OAuth
+├── users/          # User entity, registration, pagination
+├── posts/          # Posts, enums, meta-options on create
+├── tags/           # Tags and post many-to-many
+├── meta-options/   # Standalone meta option resource
+├── uploads/        # S3/Arvan file upload
+├── mail/           # SMTP + EJS templates
+├── common/         # Pagination, response interceptor
+├── config/         # App & database config, Joi validation
+├── migrations/     # TypeORM migrations
+├── app.module.ts
+├── app.create.ts   # Pipes, Swagger, CORS, listen
+└── main.ts
+test/               # E2E tests (Jest + Supertest)
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run start:dev` | Dev server with hot reload |
+| `npm run build` | Compile to `dist/` |
+| `npm run start:prod` | Run compiled app |
+| `npm run lint` | ESLint with auto-fix |
+| `npm run format` | Prettier |
+| `npm test` | Unit tests |
+| `npm run test:e2e` | E2E tests (uses `.env.test`) |
+| `npm run test:cov` | Coverage report |
+| `npm run doc` | Compodoc dev server on port 3001 |
+
+## Testing
+
+E2E tests bootstrap the full `AppModule` and expect a test database configured in `.env.test`. Run:
+
+```bash
+npm run test:e2e
+```
+
+## Upload storage
+
+`UploadsService` uploads images to **Arvan Cloud** by default. To use **AWS S3** instead, switch the provider call in `src/uploads/providers/uploads.service.ts` (see comments in that file).
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+UNLICENSED (private project).
